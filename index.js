@@ -1,10 +1,12 @@
-const fs = require('fs').promises;
+//FileBay Inc. - Sherif M - MIT
+
+const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
 const getFileHash = (filePath) => {
     return new Promise((resolve, reject) => {
-        const hash = crypto.createHash('sha256');
+        const hash = crypto.createHash('md5');
         const stream = fs.createReadStream(filePath);
         stream.on('error', err => reject(err));
         stream.on('data', chunk => hash.update(chunk));
@@ -12,41 +14,40 @@ const getFileHash = (filePath) => {
     });
 };
 
-const findFilesRecursively = async (dir) => {
-    let files = [];
-    const items = await fs.readdir(dir, { withFileTypes: true });
+const findDuplicateFiles = async (directory = '.') => {
+    const files = await fs.promises.readdir(directory, { withFileTypes: true });
+    const fileHashes = {};
+    const duplicates = {};
 
-    for (const item of items) {
-        const fullPath = path.join(dir, item.name);
-        if (item.isDirectory()) {
-            files = files.concat(await findFilesRecursively(fullPath));
-        } else {
-            files.push(fullPath);
-        }
-    }
-
-    return files;
-};
-
-const findDuplicateFiles = async (directory) => {
-    const fileHashes = new Map();
-    const duplicates = [];
-    const files = await findFilesRecursively(directory);
-
-    for (const filePath of files) {
-        try {
+    for (const dirent of files) {
+        if (dirent.isFile()) {
+            const filePath = path.join(directory, dirent.name);
             const fileHash = await getFileHash(filePath);
-            if (fileHashes.has(fileHash)) {
-                duplicates.push({ original: fileHashes.get(fileHash), duplicate: filePath });
+
+            if (fileHashes[fileHash]) {
+                if (!duplicates[fileHash]) {
+                    duplicates[fileHash] = [fileHashes[fileHash]];
+                }
+                duplicates[fileHash].push(filePath);
             } else {
-                fileHashes.set(fileHash, filePath);
+                fileHashes[fileHash] = filePath;
             }
-        } catch (error) {
-            console.error(`Error processing file ${filePath}: ${error}`);
         }
     }
 
-    return duplicates;
+    return Object.values(duplicates).filter(dupGroup => dupGroup.length > 1);
 };
 
-module.exports = findDuplicateFiles;
+// Execute with a specific directory or default to current directory
+const directory = process.argv[2] || '.';
+findDuplicateFiles(directory)
+    .then(duplicates => {
+        if (duplicates.length > 0) {
+            console.log("Duplicate files found:", duplicates);
+        } else {
+            console.log("No duplicate files found.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });

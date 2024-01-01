@@ -1,6 +1,6 @@
 # filebay-duplicate-finder
 
-Easily find duplicate files in any directory.
+Easily find duplicate files in any directory. This Node.js package helps you identify duplicate files based on their content, regardless of the file name, making it easier to manage large directories and clean up repeated files.
 
 #### Installation
 
