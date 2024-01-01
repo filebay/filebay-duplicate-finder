@@ -1,6 +1,6 @@
 {
   "name": "filebay-duplicate-finder",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Ability to search for duplicates of any file type anywhere with ease.",
   "main": "index.js",
   "scripts": {
