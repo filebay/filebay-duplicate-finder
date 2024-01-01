@@ -8,12 +8,20 @@ npm install filebay-duplicate-finder
 
 #### Usage
 
+#####javascript
 const findDuplicateFiles = require('filebay-duplicate-finder');
 
-// Replace '/path/to/directory' with the path to the directory you want to scan
+// You can specify the directory to scan for duplicate files.
+// Example: findDuplicateFiles('/path/to/directory')
+// If no path is provided, the package will scan the current working directory.
+// Example: findDuplicateFiles()
 
 findDuplicateFiles('/path/to/directory').then(duplicates => {
-    console.log("Duplicate files found:", duplicates);
+    if (duplicates.length > 0) {
+        console.log("Duplicate files found:", duplicates);
+    } else {
+        console.log("No duplicate files found.");
+    }
 }).catch(error => {
     console.error("Error finding duplicate files:", error);
 });
