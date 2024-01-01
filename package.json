@@ -1,0 +1,27 @@
+{
+  "name": "filebay-duplicate-finder",
+  "version": "1.0.0",
+  "description": "Ability to search for duplicates of any file type.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filebay/TBD.git"
+  },
+  "keywords": [
+    "dedupe",
+    "file",
+    "dupe",
+    "duplicates",
+    "duplicate",
+    "files"
+  ],
+  "author": "FileBay - Sherif",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/filebay/TBD/issues"
+  },
+  "homepage": "https://github.com/filebay/TBD#readme"
+}
