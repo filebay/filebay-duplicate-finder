@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/filebay/TBD.git"
+    "url": "git+https://github.com/filebay/filebay-duplicate-finder/TBD.git"
   },
   "keywords": [
     "dedupe",
@@ -21,7 +21,7 @@
   "author": "FileBay - Sherif",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/filebay/TBD/issues"
+    "url": "https://github.com/filebay/filebay-duplicate-finder/issues"
   },
-  "homepage": "https://github.com/filebay/TBD#readme"
+  "homepage": "https://github.com/filebay/filebay-duplicate-finder/#readme"
 }
